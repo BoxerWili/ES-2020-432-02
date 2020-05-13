@@ -1,9 +1,9 @@
-from Skyscanner import confirm_reserve
+# from Skyscanner import confirm_reserve
 
 class Flights:
 
     def __init__(self, n, d, c, p):
-        self.num_Passtgers = n
+        self.num_Passtgers = n 
         
         #llista
         self.Destination = d
@@ -37,22 +37,26 @@ def append_desti(append_destinacion, append_codi_vol, append_preu, Destination, 
         #delete_destinacion no pot ser una llista, ha de ser un unic string
         #haurem de fer el mateix pel codi vol i preu
         
+    app_dest = False  
+    app_codi = False
+    
     if (append_destinacion != None):
-        Destination.append(append_destinacion)
-    else:
-        print ('No hi ha destinacio a afegir.')
+        app_dest = True
         
         
     if (append_codi_vol != None):
-        Codi_Vol.append(append_codi_vol)
-    else:
-        print ('No hi ha codide vol a afegir.')
+        app_codi = True
         
         
+    #PARA AÑADIR UNA TIENES QUE AÑADIR TODAS
     #suposem que els preus no varien, i hi ha rembolso total del preu.
-    if(append_preu != None):
+    if((append_preu != None) and app_dest and app_codi):
+        Destination.append(append_destinacion)
+        Codi_Vol.append(append_codi_vol)
         Preu_Vol = Preu_Vol + append_preu
     else:
+        print ('No hi ha destinacio a afegir.')
+        print ('No hi ha codide vol a afegir.')
         print('No hi ha preu a afegir.')
     
     #return cada lista que editamos
@@ -62,21 +66,28 @@ def append_desti(append_destinacion, append_codi_vol, append_preu, Destination, 
 def delete_desti(delete_destinacion, delete_codi_vol, delete_preu, Destination, Codi_Vol, Preu_Vol):
     #delete_destinacion no pot ser una llista, ha de ser un unic string
     #haurem de fer el mateix pel codi vol i preu
-    if delete_destinacion in Destination: Destination.remove(delete_destinacion)
-    else:
-        print ('No hi ha destinacio a eliminar.')
+    dest_del = False
+    codi_del = False
+    
+    if delete_destinacion in Destination: 
+        dest_del = True
         
         
-    if delete_codi_vol in Codi_Vol: Codi_Vol.remove(delete_codi_vol)
-    else:
-        print ('No hi ha codi de vol per eliminar.')
-        
-            
+    if (delete_codi_vol in Codi_Vol):
+            codi_del = True
+    
+    #PARA ELIMINAR UNA TIENES QUE ELIMINAR TODAS 
+    
     #suposem que els preus no varien, i hi ha rembolso total del preu.
-    if(delete_preu!=0):
+    if(delete_preu!=0 and codi_del and dest_del):
+        Destination.remove(delete_destinacion)
+        Codi_Vol.remove(delete_codi_vol)
         Preu_Vol = Preu_Vol - delete_preu
     else:
+        print ('No hi ha destinacio a eliminar.')
+        print ('No hi ha codi de vol per eliminar.')
         print('No hi ha preu a eliminar.')
+        
             
     #return cada lista que editamos
     return Destination, Codi_Vol, Preu_Vol
@@ -85,8 +96,8 @@ def delete_desti(delete_destinacion, delete_codi_vol, delete_preu, Destination, 
 def con_reserva(User, Flights):
     #llamar funcion de Skyscanner està malament!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     VueloOk = False
-    AppVuelo = confirm_reserve(User, Flights)
-        
+    #AppVuelo = confirm_reserve(User, Flights)
+    AppVuelo=True
         
     if (AppVuelo == False):
             
@@ -95,8 +106,8 @@ def con_reserva(User, Flights):
         confirmacion = 1
         while(confirmacion <= 3):
                 
-            AppVuelo = confirm_reserve(User, Flights)
-                
+            #AppVuelo = confirm_reserve(User, Flights)
+            AppVuelo=True   
             if (AppVuelo):
                 VueloOk = True
                 break
