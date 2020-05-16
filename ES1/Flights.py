@@ -1,4 +1,7 @@
-# from Skyscanner import confirm_reserve
+#from Skyscanner import *
+#import User
+import PaymentData as pd
+import Skyscanner as S
 
 class Flights:
 
@@ -11,34 +14,45 @@ class Flights:
         #llista
         self.Codi_Vol = c
         
-        self.Preu_Vol = p
+        #llista
+        self.Preu_Vols = p
         
     
     
-def comprovacion(num_Passatgers, Destination, Codi_Vol, Preu_Vol):
-    print ("Numero viajeros:" ,num_Passatgers)
+def comprovacion(num_Passatgers, Destination, Codi_Vol, Preu_Vols):
+    #Llamar la funcion suma_preu para que nos diga el precio total del viaje 
+    Preu_Vol = pd.suma_preu_total(Preu_Vols)
+    
+    #print ("Numero viajeros:" ,num_Passatgers)
         
     if (len(Destination)==0):
-        print ("Destinaciones: No hay destino y la lista esta vacia.") 
+        Destination = []
+        #print ("Destinaciones: No hay destino y la lista esta vacia.") 
             
         if (len(Codi_Vol)==0):
-            print ("Lista de vuelos: No hay vuelo, no hay destinos.")
+            Codi_Vol = []
+            #print ("Lista de vuelos: No hay vuelo, no hay destinos.")
                 
         if (Preu_Vol == 0):
-            print ("Precio: El precio del vuelo es 0, no hay destinos")
+            Preu_Vol = 0
+            #print ("Precio: El precio del vuelo es 0, no hay destinos")
                 
-    else:
-        print ("Destinaciones:" ,Destination)
-        print ("Lista de vuelos:" ,Codi_Vol)
-        print ("Precio:" ,Preu_Vol)
+    #else:
+        #print ("Destinaciones:" ,Destination)
+        #print ("Lista de vuelos:" ,Codi_Vol)
+        #print ("Precio:" ,Preu_Vol)
+        
+    return num_Passatgers, Destination, Codi_Vol, Preu_Vol
     
-    
-def append_desti(append_destinacion, append_codi_vol, append_preu, Destination, Codi_Vol, Preu_Vol):
+def append_desti(append_destinacion, append_codi_vol, append_preu, Destination, Codi_Vol, Preu_Vols):
         #delete_destinacion no pot ser una llista, ha de ser un unic string
         #haurem de fer el mateix pel codi vol i preu
-        
+    
     app_dest = False  
     app_codi = False
+    
+    #Llamar la funcion suma_preu para que nos diga el precio total del viaje 
+    Preu_Vol = pd.suma_preu_total(Preu_Vols)
     
     if (append_destinacion != None):
         app_dest = True
@@ -94,13 +108,14 @@ def delete_desti(delete_destinacion, delete_codi_vol, delete_preu, Destination, 
     
     
 def con_reserva(User, Flights):
+    
     #llamar funcion de Skyscanner està malament!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    VueloOk = False
-    #AppVuelo = confirm_reserve(User, Flights)
-    AppVuelo=True
+    #VueloOk = False
+    AppVuelo = S.confirm_reserve(User, Flights)
+    #AppVuelo=True
         
     if (AppVuelo == False):
-            
+        """    
         # Reintentamos confirmar la reserva de vuelos... suponemos que no 
             
         confirmacion = 1
@@ -122,9 +137,11 @@ def con_reserva(User, Flights):
                 
             # 13
             # proceso de pago termina 
-                
+        """
+        print ("Ha habido un problema durante el proceso de confirmacion, no se ha efectuado ningun cargo")
+
     else:
-        VueloOk = True
+        print ("Se ha realizado correctamente el pago")
         
-    return VueloOk
+    
         
