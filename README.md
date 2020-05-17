@@ -1,1 +1,5 @@
-# ProyectoES
+# Pau Rovira Quiles - 1498591
+# Oscar Sánchez Lima - 1527377
+# David Páez Jiménez - 1528728
+# Alex Pardilla López - 1529635
+# Víctor Sancho Aguilera - 1529721
