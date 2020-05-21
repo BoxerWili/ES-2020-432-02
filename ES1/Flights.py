@@ -1,7 +1,7 @@
-#from Skyscanner import *
+from . import Skyscanner
 #import User
 import PaymentData as pd
-import Skyscanner as S
+#import Skyscanner as S
 
 class Flights:
 
@@ -17,34 +17,35 @@ class Flights:
         #llista
         self.Preu_Vols = p
         
+        self.Preu_Vol = pd.suma_preu_vols(p)
     
     
-def comprovacion(num_Passatgers, Destination, Codi_Vol, Preu_Vols):
+def comprovacion(self):
     #Llamar la funcion suma_preu para que nos diga el precio total del viaje 
-    Preu_Vol = pd.suma_preu_total(Preu_Vols)
+    #Preu_Vol = pd.suma_preu_vols(self.Preu_Vols)
     
-    #print ("Numero viajeros:" ,num_Passatgers)
+    print ("Numero viajeros:" ,self.num_Passatgers)
         
-    if (len(Destination)==0):
-        Destination = []
-        #print ("Destinaciones: No hay destino y la lista esta vacia.") 
+    if (len(self.Destination)==0):
+        self.Destination = []
+        print ("Destinaciones: No hay destino y la lista esta vacia.") 
             
-        if (len(Codi_Vol)==0):
-            Codi_Vol = []
-            #print ("Lista de vuelos: No hay vuelo, no hay destinos.")
+        if (len(self.Codi_Vol)==0):
+            self.Codi_Vol = []
+            print ("Lista de vuelos: No hay vuelo, no hay destinos.")
                 
-        if (Preu_Vol == 0):
-            Preu_Vol = 0
-            #print ("Precio: El precio del vuelo es 0, no hay destinos")
+        if (self.Preu_Vol == 0):
+            self.Preu_Vol = 0
+            print ("Precio: El precio del vuelo es 0, no hay destinos")
                 
-    #else:
-        #print ("Destinaciones:" ,Destination)
-        #print ("Lista de vuelos:" ,Codi_Vol)
-        #print ("Precio:" ,Preu_Vol)
+    else:
+        print ("Destinaciones:" ,self.Destination)
+        print ("Lista de vuelos:" ,self.Codi_Vol)
+        print ("Precio:" ,self.Preu_Vol)
         
-    return num_Passatgers, Destination, Codi_Vol, Preu_Vol
+    #return self.num_Passatgers, self.Destination, self.Codi_Vol, self.Preu_Vol
     
-def append_desti(append_destinacion, append_codi_vol, append_preu, Destination, Codi_Vol, Preu_Vols):
+def append_desti(self, append_destinacion, append_codi_vol, append_preu):
         #delete_destinacion no pot ser una llista, ha de ser un unic string
         #haurem de fer el mateix pel codi vol i preu
     
@@ -52,7 +53,7 @@ def append_desti(append_destinacion, append_codi_vol, append_preu, Destination, 
     app_codi = False
     
     #Llamar la funcion suma_preu para que nos diga el precio total del viaje 
-    Preu_Vol = pd.suma_preu_total(Preu_Vols)
+    #Preu_Vol = pd.suma_preu_vols(Preu_Vols)
     
     if (append_destinacion != None):
         app_dest = True
@@ -65,38 +66,38 @@ def append_desti(append_destinacion, append_codi_vol, append_preu, Destination, 
     #PARA AÑADIR UNA TIENES QUE AÑADIR TODAS
     #suposem que els preus no varien, i hi ha rembolso total del preu.
     if((append_preu != None) and app_dest and app_codi):
-        Destination.append(append_destinacion)
-        Codi_Vol.append(append_codi_vol)
-        Preu_Vol = Preu_Vol + append_preu
+        self.Destination.append(append_destinacion)
+        self.Codi_Vol.append(append_codi_vol)
+        self.Preu_Vol = self.Preu_Vol + append_preu
     else:
         print ('No hi ha destinacio a afegir.')
         print ('No hi ha codide vol a afegir.')
         print('No hi ha preu a afegir.')
     
     #return cada lista que editamos
-    return Destination, Codi_Vol, Preu_Vol
+    return self.Destination, self.Codi_Vol, self.Preu_Vol
     
     
-def delete_desti(delete_destinacion, delete_codi_vol, delete_preu, Destination, Codi_Vol, Preu_Vol):
+def delete_desti(self, delete_destinacion, delete_codi_vol, delete_preu):
     #delete_destinacion no pot ser una llista, ha de ser un unic string
     #haurem de fer el mateix pel codi vol i preu
     dest_del = False
     codi_del = False
     
-    if delete_destinacion in Destination: 
+    if delete_destinacion in self.Destination: 
         dest_del = True
         
         
-    if (delete_codi_vol in Codi_Vol):
+    if (delete_codi_vol in self.Codi_Vol):
             codi_del = True
     
     #PARA ELIMINAR UNA TIENES QUE ELIMINAR TODAS 
     
     #suposem que els preus no varien, i hi ha rembolso total del preu.
     if(delete_preu!=0 and codi_del and dest_del):
-        Destination.remove(delete_destinacion)
-        Codi_Vol.remove(delete_codi_vol)
-        Preu_Vol = Preu_Vol - delete_preu
+        self.Destination.remove(delete_destinacion)
+        self.Codi_Vol.remove(delete_codi_vol)
+        self.Preu_Vol = self.Preu_Vol - delete_preu
     else:
         print ('No hi ha destinacio a eliminar.')
         print ('No hi ha codi de vol per eliminar.')
@@ -104,18 +105,30 @@ def delete_desti(delete_destinacion, delete_codi_vol, delete_preu, Destination, 
         
             
     #return cada lista que editamos
-    return Destination, Codi_Vol, Preu_Vol
+    return self.Destination, self.Codi_Vol, self.Preu_Vol
     
     
-def con_reserva(User, Flights):
+def con_reserva(self, append_destinacion, append_codi_vol, append_preu, delete_destinacion, delete_codi_vol, delete_preu):
+    
     
     #llamar funcion de Skyscanner està malament!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    #VueloOk = False
-    AppVuelo = S.confirm_reserve(User, Flights)
-    #AppVuelo=True
+    #AppVuelo = S.confirm_reserve(User, Flights)
+    
+    VueloOk = False
+    AppVuelo=True
+    add_desti = False
+    dele_desti = False
+    
+    while (add_desti):
+        self.Destination, self.Codi_Vol, self.Preu_Vol = append_desti(self, append_destinacion, append_codi_vol, append_preu)
         
+    while (dele_desti):
+        self.Destination, self.Codi_Vol, self.Preu_Vol = delete_desti(self, delete_destinacion, delete_codi_vol, delete_preu)
+        
+    print (comprovacion(self))
+    
     if (AppVuelo == False):
-        """    
+            
         # Reintentamos confirmar la reserva de vuelos... suponemos que no 
             
         confirmacion = 1
@@ -127,21 +140,19 @@ def con_reserva(User, Flights):
                 VueloOk = True
                 break
             else:
-                confirmacion=confirmacion + 1
+                confirmacion = confirmacion + 1
                     
-        if (confirmacion != 1):
+        if (VueloOk == False):
                 
             # cancelamos cargo realizado 
                 
-            print ("Ha habido un problema durante el proceso de confirmacion, no se ha efectuado ningun cargo")
+            print ("Ha habido un problema durante el proceso de confirmacion del vuelo, no se ha efectuado ningun cargo")
                 
             # 13
             # proceso de pago termina 
-        """
-        print ("Ha habido un problema durante el proceso de confirmacion, no se ha efectuado ningun cargo")
-
     else:
-        print ("Se ha realizado correctamente el pago")
+        VueloOk = True
         
-    
+        
+    return VueloOk
         
