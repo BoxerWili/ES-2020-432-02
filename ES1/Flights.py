@@ -1,3 +1,7 @@
+##import Funcions as F
+
+
+
 class Flights:
 
     def __init__(self, n, d, c, p):
@@ -10,6 +14,28 @@ class Flights:
         self.Codi_Vol = c
         
         #llista
-        #self.Preu_Vols = p
+        self.Preu_Vols = p
         
-        #self.Preu_Vol = pd.suma_preu_vols(p)
+        #self.Preu_Vol = F.Funcions.suma_preu_vols(self.Preu_Vols)
+        
+        pass
+    
+    def afegirCar(self, car):
+        self.coche=car
+        pass
+    
+    
+    def deleteCar(self):
+        self.coche = None
+    
+    def afegirHotels(self, Hotel):
+        
+        self.Hotel=Hotel
+    
+        pass
+    
+    def deleteHotel(self):
+        
+        self.Hotel=None
+        
+        

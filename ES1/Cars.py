@@ -1,3 +1,4 @@
+##import Funcions as F
 class Cars:
 
     def __init__(self,c, m, d, r ,p):
@@ -12,7 +13,7 @@ class Cars:
         self.recollida = r
         
         #llista
-        #self.Preu_vehis = p
+        self.Preu_vehis = p
         
-        #self.Preu_vehi = pd.suma_preu_vehi(p)
+        #self.Preu_vehi = F.Funcions.suma_preu_vehi(self.Preu_vehis)
         pass
