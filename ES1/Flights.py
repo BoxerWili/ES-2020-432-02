@@ -18,6 +18,8 @@ class Flights:
         
         #self.Preu_Vol = F.Funcions.suma_preu_vols(self.Preu_Vols)
         
+        self.coche=None
+        
         pass
     
     def afegirCar(self, car):
