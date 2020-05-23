@@ -205,6 +205,10 @@ def main():
                 
                 #Preu_personal = F.Funcions.suma_preu_persona(F, Josep)
                 
+                print ("############################################")
+                print("Preus")
+                print ("############################################")
+                
                 print("Preu personal: ", Preu_personal)
                 
                 Preu_total = F.Funcions.suma_preu_vols_total(F, Josep) + F.Funcions.suma_preu_aloja(F, Josep) + F.Funcions.suma_preu_vehi(F, Josep)
